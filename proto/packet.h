@@ -4,7 +4,7 @@ public:
 		char			version;	
 		unsigned int	size;
 		unsigned int	timestamp;
-		unsigned int	data_size;
+		unsigned int	data_count;
 	};
 	struct Data{
 		unsigned int	size;
