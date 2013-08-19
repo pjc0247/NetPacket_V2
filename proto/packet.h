@@ -40,7 +40,8 @@ public:
 	void		pushString(const char* str);
 	void		pushBinary(void* bin,int size);
 
-	bool		build();
+	bool		load_data(char *data,int size);
+	bool		load_header(char *data);
 };
 
 #endif // _PACKET_H

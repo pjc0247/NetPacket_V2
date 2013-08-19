@@ -28,11 +28,27 @@ void Packet::release(){
 
 bool Packet::load_data(char *data,int size){
 
+	for(int offset=0;offset<size;){
+		int size;
 
+		memcpy_s(&size, sizeof(int),
+			data + offset, sizeof(int));
+		offset += sizeof(int);
+
+		pushBinary(data + offset, size);
+		offset += size;
+	}
 
 	return true;
 }
-bool Packet::load_header(char *data,int size){
+
+bool Packet::load_header(char *data){
+	size_t copy_size = sizeof(Header)-sizeof(int);
+
+	memcpy_s(&header+sizeof(int), copy_size,
+		data, copy_size);
+
+	return true;
 }
 
 void Packet::pushInt(int v){
