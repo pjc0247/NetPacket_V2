@@ -1,3 +1,6 @@
+#ifndef _PACKET_H
+#define _PACKET_H
+
 class Packet{
 public:
 	struct Header{
@@ -35,3 +38,5 @@ public:
 
 	bool		build();
 };
+
+#endif // _PACKET_H
