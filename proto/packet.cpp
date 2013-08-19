@@ -1,3 +1,9 @@
+#include "packet.h"
+
+#include <stdlib.h>
+#include <memory.h>
+#include <string.h>
+
 Packet::Packet(){
 	memset(&header ,0, sizeof(Header));
 	data = NULL;
