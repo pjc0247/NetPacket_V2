@@ -32,4 +32,6 @@ public:
 	void		pushChar(char c);
 	void		pushString(const char* str);
 	void		pushBinary(void* bin,int size);
+
+	bool		build();
 };
