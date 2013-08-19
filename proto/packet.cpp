@@ -37,13 +37,17 @@ void Packet::pushChar(char c){
 	pushBinary(&c, sizeof(char));
 }
 void Packet::pushString(const char *str){
-	pushBinary((void*)str, strlen(str) + 1);
+	pushBinary(const_cast<char*>(str), strlen(str) + 1);
 }
 void Packet::pushBinary(void *bin,int size){
 	if(data == NULL)
-		data = (Data*)malloc(sizeof(Data));
+		data = static_cast<Data*>(
+				malloc(sizeof(Data))
+				);
 	else
-		data = (Data*)realloc(data, sizeof(Data) * (header.data_count+1));
+		data = static_cast<Data*>(
+				realloc(data, sizeof(Data) * (header.data_count+1))
+				);
 	
 	Data *dst;
 
@@ -60,13 +64,13 @@ void Packet::pushBinary(void *bin,int size){
 
 
 int Packet::getInt(){
-	return *(int*)getBinary(NULL);
+	return *static_cast<int*>(getBinary(NULL));
 }
 char Packet::getChar(){
-	return *(char*)getBinary(NULL);
+	return *static_cast<char*>(getBinary(NULL));
 }
 char* Packet::getString(){
-	return (char*)getBinary(NULL);
+	return static_cast<char*>(getBinary(NULL));
 }
 
 void* Packet::getBinary(int *size){
