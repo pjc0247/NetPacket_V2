@@ -16,10 +16,14 @@ Packet::~Packet(){
 }
 
 void Packet::release(){
+	if(data == NULL) return;
+
 	for(unsigned int i=0;i<header.data_count;i++){
 		free(data[i].data);
 	}
 	free(data);
+
+	data = NULL;
 }
 
 bool Packet::build(){
