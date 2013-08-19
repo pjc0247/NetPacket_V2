@@ -21,6 +21,7 @@ public:
 	Packet();
 	virtual ~Packet();
 
+	void		release();
 
 	int			getInt();
 	char		getChar();
