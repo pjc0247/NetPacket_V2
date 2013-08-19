@@ -7,7 +7,7 @@ public:
 		unsigned int	data_size;
 	};
 	struct Data{
-		char			size;
+		unsigned int	size;
 		void*			data;
 	};
 
