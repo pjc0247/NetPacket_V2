@@ -4,14 +4,14 @@
 class Packet{
 public:
 	struct Header{
-		unsigned int	size;
+		int				size;
 		char			version;
 		int				id;
 		unsigned int	timestamp;
-		unsigned int	data_count;
+		int				data_count;
 	};
 	struct Data{
-		unsigned int	size;
+		int				size;
 		void*			data;
 	};
 
