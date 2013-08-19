@@ -4,8 +4,8 @@
 class Packet{
 public:
 	struct Header{
-		char			version;	
 		unsigned int	size;
+		char			version;	
 		unsigned int	timestamp;
 		unsigned int	data_count;
 	};
