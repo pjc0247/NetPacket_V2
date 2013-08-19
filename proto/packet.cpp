@@ -18,7 +18,7 @@ Packet::~Packet(){
 void Packet::release(){
 	if(data == NULL) return;
 
-	for(unsigned int i=0;i<header.data_count;i++){
+	for(int i=0;i<header.data_count;i++){
 		free(data[i].data);
 	}
 	free(data);
@@ -26,8 +26,13 @@ void Packet::release(){
 	data = NULL;
 }
 
-bool Packet::build(){
+bool Packet::load_data(char *data,int size){
+
+
+
 	return true;
+}
+bool Packet::load_header(char *data,int size){
 }
 
 void Packet::pushInt(int v){
@@ -59,7 +64,7 @@ void Packet::pushBinary(void *bin,int size){
 	memcpy_s(dst->data,size, bin,size);
 
 	header.data_count ++;
-	header.size += sizeof(unsigned int) + size;
+	header.size += sizeof(int) + size;
 }
 
 
