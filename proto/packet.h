@@ -12,11 +12,14 @@ public:
 	};
 	struct Data{
 		int				size;
-		void*			data;
+		int				offset;
 	};
 
 	Header				header;
 	Data*				data;
+
+	void*				packed;
+	int					packed_size;
 
 protected:
 	int					data_pointer;

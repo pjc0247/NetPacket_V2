@@ -45,26 +45,44 @@ void Packet::pushString(const char *str){
 	pushBinary(const_cast<char*>(str), strlen(str) + 1);
 }
 void Packet::pushBinary(void *bin,int size){
-	if(data == NULL)
+	if(data == NULL){
 		data = static_cast<Data*>(
-				malloc(sizeof(Data))
+					malloc(sizeof(Data))
 				);
-	else
+		packed = static_cast<Data*>(
+					malloc(sizeof(Header) + sizeof(int) + size)
+				);
+	}
+	else{
 		data = static_cast<Data*>(
-				realloc(data, sizeof(Data) * (header.data_count+1))
+					realloc(data, sizeof(Data) * (header.data_count+1))
 				);
+		packed = static_cast<Data*>(
+					realloc(packed,
+						sizeof(Header) + packed_size + sizeof(int) + size)
+				);
+	}
 	
 	Data *dst;
+	int offset = packed_size;
 
 	dst = &data[header.data_count];
 
+	// size 쓰기
 	dst->size = size;
-	dst->data = malloc(size);
+	memcpy_s(static_cast<char*>(packed) + offset, sizeof(int),
+			&size, sizeof(int));
+	offset += sizeof(int);
 
-	memcpy_s(dst->data,size, bin,size);
+	// data 쓰기
+	memcpy_s(static_cast<char*>(packed) + offset, size,
+			bin, size);
+	dst->offset = offset;
+	
 
 	header.data_count ++;
 	header.size += sizeof(int) + size;
+	packed_size += sizeof(int) + size;
 }
 
 
@@ -92,5 +110,5 @@ void* Packet::getBinary(int *size){
 
 	data_pointer ++;
 
-	return src->data;
+	return static_cast<char*>(packed) + src->offset;
 }
