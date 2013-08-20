@@ -35,6 +35,7 @@ int main(int argc, char* argv[])
 
 	{
 		// 3. XOR coding
+		printf(" test3. \n");
 
 		class MyPacket : public Packet
 		{
