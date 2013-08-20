@@ -94,12 +94,12 @@ void Packet::pushBinary(void *bin,int size){
 
 	// size 쓰기
 	dst->size = size;
-	memcpy_s(static_cast<char*>(packed) + offset, sizeof(int),
+	memcpy_s(packed + offset, sizeof(int),
 			&size, sizeof(int));
 	offset += sizeof(int);
 
 	// data 쓰기
-	memcpy_s(static_cast<char*>(packed) + offset, size,
+	memcpy_s(packed + offset, size,
 			bin, size);
 	dst->offset = offset;
 	
@@ -134,5 +134,5 @@ void* Packet::getBinary(int *size){
 
 	data_pointer ++;
 
-	return static_cast<char*>(packed) + src->offset;
+	return packed + src->offset;
 }
