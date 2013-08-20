@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "packet.h"
 
 #include <stdlib.h>
@@ -143,4 +145,15 @@ void* Packet::getBinary(int *size){
 	data_pointer ++;
 
 	return packed + src->offset;
+}
+
+bool Packet::unpack(char *data,int size){
+	if(! load_header(data) )
+		return false;
+	if(! load_data(data + sizeof(Header), size - sizeof(Header)))
+		return false;
+	return true;
+}
+bool Packet::pack(){
+	return write_header();
 }
