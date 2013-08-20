@@ -42,6 +42,8 @@ public:
 
 	bool		load_data(char *data,int size);
 	bool		load_header(char *data);
+
+	bool		write_header();
 };
 
 #endif // _PACKET_H

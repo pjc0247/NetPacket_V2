@@ -50,6 +50,14 @@ bool Packet::load_header(char *data){
 
 	return true;
 }
+bool Packet::write_header(){
+	size_t copy_size = sizeof(Header);
+
+	memcpy_s(packed, copy_size,
+		&header, copy_size);
+	
+	return true;
+}
 
 void Packet::pushInt(int v){
 	pushBinary(&v, sizeof(int));
