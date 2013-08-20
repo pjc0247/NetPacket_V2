@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 #include "packet.h"
 
 #include <stdlib.h>
