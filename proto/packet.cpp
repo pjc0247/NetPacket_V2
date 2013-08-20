@@ -65,7 +65,7 @@ void Packet::pushBinary(void *bin,int size){
 		data = static_cast<Data*>(
 					malloc(sizeof(Data))
 				);
-		packed = static_cast<Data*>(
+		packed = static_cast<char*>(
 					malloc(sizeof(Header) + sizeof(int) + size)
 				);
 	}
@@ -73,7 +73,7 @@ void Packet::pushBinary(void *bin,int size){
 		data = static_cast<Data*>(
 					realloc(data, sizeof(Data) * (header.data_count+1))
 				);
-		packed = static_cast<Data*>(
+		packed = static_cast<char*>(
 					realloc(packed,
 						sizeof(Header) + packed_size + sizeof(int) + size)
 				);
