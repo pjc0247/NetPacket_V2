@@ -21,13 +21,12 @@ Packet::~Packet(){
 }
 
 void Packet::release(){
-	if(data == NULL) return;
+	if(data != NULL)
+		free(data);
+	if(packed != NULL)
+		free(packed);
 
-	for(int i=0;i<this->data_count;i++){
-		free(data[i].data);
-	}
-	free(data);
-
+	packed = NULL;
 	data = NULL;
 }
 
