@@ -32,6 +32,10 @@ void Packet::release(){
 }
 
 bool Packet::load_data(char *data,int size){
+	this->size = sizeof(Header);
+	this->data_count = 0;
+
+	packed_size = sizeof(Header);
 
 	for(int offset=0;offset<size;){
 		int size;
