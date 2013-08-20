@@ -2,6 +2,8 @@
 #define _PACKET_H
 
 
+#define MEM_PREALLOC	24
+
 #pragma pack(push, 4)
 class Packet{
 public:
@@ -26,6 +28,9 @@ public:
 
 protected:
 	int					data_pointer;
+
+	int					mem_reserved;
+	int					mem_commited;
 
 public:
 	Packet();

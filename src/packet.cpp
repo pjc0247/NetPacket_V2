@@ -7,6 +7,9 @@
 Packet::Packet(){
 	memset(&header ,0, sizeof(Header));
 
+	mem_reserved = MEM_PREALLOC;
+	mem_commited = 0;
+
 	data = NULL;
 	data_pointer = 0;
 
@@ -119,6 +122,7 @@ void Packet::pushBinary(void *bin,int size){
 	
 
 	this->data_count ++;
+	this->mem_commited += sizeof(int) + size;
 	this->size += sizeof(int) + size;
 	packed_size += sizeof(int) + size;
 }
