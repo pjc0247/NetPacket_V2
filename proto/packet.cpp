@@ -6,10 +6,15 @@
 
 Packet::Packet(){
 	memset(&header ,0, sizeof(Header));
+
 	data = NULL;
 	data_pointer = 0;
 
-	header.size = sizeof(Header);
+	packed = NULL;
+	packed_size = sizeof(Header);
+
+	this->data_count = 0;
+	this->size = sizeof(Header);
 }
 Packet::~Packet(){
 	release();
