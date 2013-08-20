@@ -2,6 +2,7 @@
 #define _PACKET_H
 
 
+#pragma pack(push, 4)
 class Packet{
 public:
 	struct Header{
@@ -54,5 +55,6 @@ public:
 	virtual bool unpack(char *data,int size);
 	virtual bool pack();
 };
+#pragma pack(pop)
 
 #endif // _PACKET_H
