@@ -34,11 +34,13 @@ public:
 	int			getInt();
 	char		getChar();
 	char*		getString();
+	float		getFloat();
 	void*		getBinary(int *size);
 
 	void		pushInt(int v);
 	void		pushChar(char c);
 	void		pushString(const char* str);
+	void		pushFloat(float f);
 	void		pushBinary(void* bin,int size);
 
 	bool		load_data(char *data,int size);
