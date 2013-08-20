@@ -52,9 +52,9 @@ bool Packet::load_data(char *data,int size){
 }
 
 bool Packet::load_header(char *data){
-	size_t copy_size = sizeof(Header)-sizeof(int);
+	size_t copy_size = sizeof(Header);
 
-	memcpy_s(&header+sizeof(int), copy_size,
+	memcpy_s(&header, copy_size,
 		data, copy_size);
 
 	return true;
