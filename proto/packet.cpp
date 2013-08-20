@@ -92,7 +92,7 @@ void Packet::pushBinary(void *bin,int size){
 				);
 		packed = static_cast<char*>(
 					realloc(packed,
-						sizeof(Header) + packed_size + sizeof(int) + size)
+						packed_size + sizeof(int) + size)
 				);
 	}
 	
