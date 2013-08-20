@@ -2,7 +2,8 @@
 #define _PACKET_H
 
 
-#define MEM_PREALLOC	24
+#define MEM_USE_PREALLOC	1
+#define MEM_RESERVE_SCALE	24
 
 #pragma pack(push, 4)
 class Packet{
@@ -31,6 +32,10 @@ protected:
 
 	int					mem_reserved;
 	int					mem_commited;
+
+protected:
+	void		mem_reserve(int size);
+	void		mem_allocate(int size);
 
 public:
 	Packet();

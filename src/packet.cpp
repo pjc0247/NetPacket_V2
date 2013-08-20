@@ -7,7 +7,7 @@
 Packet::Packet(){
 	memset(&header ,0, sizeof(Header));
 
-	mem_reserved = MEM_PREALLOC;
+	mem_reserved = 0;
 	mem_commited = 0;
 
 	data = NULL;
@@ -31,6 +31,23 @@ void Packet::release(){
 
 	packed = NULL;
 	data = NULL;
+}
+
+void Packet::mem_reserve(int size){
+	mem_reserved += size;
+
+	packed = static_cast<char*>(
+					realloc(packed, mem_reserved) );
+}
+void Packet::mem_allocate(int size){
+	mem_commited += size;
+
+#ifdef MEM_USE_PREALLOC
+	if(mem_commited > mem_reserved)
+		mem_reserve(size + MEM_RESERVE_SCALE);
+#else
+	mem_reserve(size);
+#endif
 }
 
 bool Packet::load_data(char *data,int size){
@@ -90,18 +107,15 @@ void Packet::pushBinary(void *bin,int size){
 		data = static_cast<Data*>(
 					malloc(sizeof(Data))
 				);
-		packed = static_cast<char*>(
-					malloc(sizeof(Header) + sizeof(int) + size)
-				);
+
+		mem_allocate(sizeof(Header) + sizeof(int) + size);
 	}
 	else{
 		data = static_cast<Data*>(
 					realloc(data, sizeof(Data) * (this->data_count+1))
 				);
-		packed = static_cast<char*>(
-					realloc(packed,
-						packed_size + sizeof(int) + size)
-				);
+
+		mem_allocate(sizeof(int) + size);
 	}
 	
 	Data *dst;
@@ -122,7 +136,6 @@ void Packet::pushBinary(void *bin,int size){
 	
 
 	this->data_count ++;
-	this->mem_commited += sizeof(int) + size;
 	this->size += sizeof(int) + size;
 	packed_size += sizeof(int) + size;
 }
