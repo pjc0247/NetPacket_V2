@@ -23,7 +23,7 @@ Packet::~Packet(){
 void Packet::release(){
 	if(data == NULL) return;
 
-	for(int i=0;i<header.data_count;i++){
+	for(int i=0;i<this->data_count;i++){
 		free(data[i].data);
 	}
 	free(data);
@@ -88,7 +88,7 @@ void Packet::pushBinary(void *bin,int size){
 	}
 	else{
 		data = static_cast<Data*>(
-					realloc(data, sizeof(Data) * (header.data_count+1))
+					realloc(data, sizeof(Data) * (this->data_count+1))
 				);
 		packed = static_cast<char*>(
 					realloc(packed,
@@ -99,7 +99,7 @@ void Packet::pushBinary(void *bin,int size){
 	Data *dst;
 	int offset = packed_size;
 
-	dst = &data[header.data_count];
+	dst = &data[this->data_count];
 
 	// size ¾²±â
 	dst->size = size;
@@ -113,8 +113,8 @@ void Packet::pushBinary(void *bin,int size){
 	dst->offset = offset;
 	
 
-	header.data_count ++;
-	header.size += sizeof(int) + size;
+	this->data_count ++;
+	this->size += sizeof(int) + size;
 	packed_size += sizeof(int) + size;
 }
 
@@ -131,7 +131,7 @@ char* Packet::getString(){
 
 void* Packet::getBinary(int *size){
 
-	if(data_pointer >= header.data_count) // underflow
+	if(data_pointer >= this->data_count) // underflow
 		return NULL;
 
 	Data *src;
