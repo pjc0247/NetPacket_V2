@@ -18,7 +18,7 @@ public:
 	Header				header;
 	Data*				data;
 
-	void*				packed;
+	char*				packed;
 	int					packed_size;
 
 protected:
