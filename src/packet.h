@@ -1,6 +1,7 @@
 #ifndef _PACKET_H
 #define _PACKET_H
 
+
 class Packet{
 public:
 	struct Header{
@@ -35,12 +36,14 @@ public:
 	char		getChar();
 	char*		getString();
 	float		getFloat();
+	double		getDouble();
 	void*		getBinary(int *size);
 
 	void		pushInt(int v);
 	void		pushChar(char c);
 	void		pushString(const char* str);
 	void		pushFloat(float f);
+	void		pushDouble(double d);
 	void		pushBinary(void* bin,int size);
 
 	bool		load_data(char *data,int size);

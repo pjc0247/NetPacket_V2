@@ -79,6 +79,9 @@ void Packet::pushString(const char *str){
 void Packet::pushFloat(float f){
 	pushBinary(&f, sizeof(float));
 }
+void Packet::pushDouble(double d){
+	pushBinary(&d, sizeof(double));
+}
 void Packet::pushBinary(void *bin,int size){
 	if(data == NULL){
 		data = static_cast<Data*>(
@@ -132,6 +135,9 @@ char* Packet::getString(){
 }
 float Packet::getFloat(){
 	return *static_cast<float*>(getBinary(NULL));
+}
+double Packet::getDouble(){
+	return *static_cast<double*>(getBinary(NULL));
 }
 
 void* Packet::getBinary(int *size){
