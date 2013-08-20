@@ -46,8 +46,8 @@ public:
 
 	bool		write_header();
 
-	bool		unpack(char *data,int size);
-	bool		pack();
+	virtual bool unpack(char *data,int size);
+	virtual bool pack();
 };
 
 #endif // _PACKET_H
