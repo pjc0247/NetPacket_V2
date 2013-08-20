@@ -33,6 +33,48 @@ int main(int argc, char* argv[])
 		printf("%s\n", p2.getString());
 	}
 
+	{
+		// 3. XOR coding
+
+		class MyPacket : public Packet
+		{
+		public:
+			virtual bool pack(int key){
+				bool ret;
+
+				ret = Packet::pack();
+				
+				for(int i=0;i<packed_size;i++)
+					packed[i] ^= key;
+
+				return ret;
+			}
+			virtual bool unpack(char *data,int size,int key){
+				bool ret;
+				char *cpy = new char[size];
+
+				for(int i=0;i<size;i++)
+					cpy[i] = data[i] ^ key;
+
+				ret = Packet::unpack(cpy, size);
+				
+				delete cpy;
+
+				return ret;
+			}
+		};
+
+		const int Key = 12;
+		MyPacket p1, p2;
+
+		p1.pushString("hello");
+
+		p1.pack( Key );
+		p2.unpack( p1.packed, p1.packed_size, Key );
+
+		printf("%s\n", p2.getString());
+	}
+
 	return 0;
 }
 
