@@ -4,11 +4,9 @@
 class Packet{
 public:
 	struct Header{
-		int				size;
 		char			version;
 		int				id;
 		unsigned int	timestamp;
-		int				data_count;
 	};
 	struct Data{
 		int				size;
@@ -17,6 +15,9 @@ public:
 
 	Header				header;
 	Data*				data;
+
+	int					size;
+	int					data_count;
 
 	char*				packed;
 	int					packed_size;
