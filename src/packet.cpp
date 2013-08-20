@@ -33,9 +33,9 @@ void Packet::release(){
 	data = NULL;
 }
 
-void Packet::mem_reserve(int size){
+void Packet::mem_reserve(int size){	
 	mem_reserved += size;
-
+	
 	packed = static_cast<char*>(
 					realloc(packed, mem_reserved) );
 }
@@ -44,7 +44,7 @@ void Packet::mem_allocate(int size){
 
 #ifdef MEM_USE_PREALLOC
 	if(mem_commited > mem_reserved)
-		mem_reserve(size + MEM_RESERVE_SCALE);
+		mem_reserve(mem_commited - mem_reserved + MEM_RESERVE_SCALE);
 #else
 	mem_reserve(size);
 #endif
