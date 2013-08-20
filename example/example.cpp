@@ -12,6 +12,8 @@ int main(int argc, char* argv[])
 		p.pushString("hello world");
 		p.pushInt(123);
 
+		// unpack 할 필요가 없는 상황일 경우 pack 메소드는 출력하지 않아도 무관함.
+
 		printf("data count : %d\n", p.data_count);
 		printf("packed size : %dbytes\n", p.packed_size);
 		printf("%s\n", p.getString());
