@@ -12,6 +12,7 @@ int main(int argc, char* argv[])
 		p.pushString("hello world");
 		p.pushInt(123);
 
+		printf("data count : %d\n", p.data_count);
 		printf("%s\n", p.getString());
 		printf("%d\n", p.getInt());
 	}
