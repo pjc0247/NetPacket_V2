@@ -32,6 +32,9 @@ void Packet::release(){
 	packed = NULL;
 	data = NULL;
 }
+void Packet::rewind(){
+	data_pointer = 0;
+}
 
 void Packet::mem_reserve(int size){	
 	mem_reserved += size;

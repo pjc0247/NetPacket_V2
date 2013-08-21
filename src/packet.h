@@ -42,6 +42,7 @@ public:
 	virtual ~Packet();
 
 	void		release();
+	void		rewind();
 
 	int			getInt();
 	char		getChar();
