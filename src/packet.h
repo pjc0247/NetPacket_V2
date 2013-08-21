@@ -43,6 +43,7 @@ public:
 
 	void		release();
 	void		rewind();
+	bool		skip();
 
 	int			getInt();
 	char		getChar();

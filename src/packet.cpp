@@ -35,6 +35,13 @@ void Packet::release(){
 void Packet::rewind(){
 	data_pointer = 0;
 }
+bool Packet::skip(){
+	if(data_pointer >= this->data_count)
+		return false;
+
+	data_pointer ++;
+	return true;
+}
 
 void Packet::mem_reserve(int size){	
 	mem_reserved += size;
