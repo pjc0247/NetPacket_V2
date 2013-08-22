@@ -10,7 +10,6 @@ Packet::Packet(){
 	mem_reserved = 0;
 	mem_commited = 0;
 
-	data = NULL;
 	data_pointer = 0;
 
 	packed = NULL;
@@ -24,13 +23,11 @@ Packet::~Packet(){
 }
 
 void Packet::release(){
-	if(data != NULL)
-		free(data);
+	data.clear();
 	if(packed != NULL)
 		free(packed);
 
 	packed = NULL;
-	data = NULL;
 }
 void Packet::rewind(){
 	data_pointer = 0;
@@ -113,28 +110,16 @@ void Packet::pushDouble(double d){
 	pushBinary(&d, sizeof(double));
 }
 void Packet::pushBinary(void *bin,int size){
-	if(data == NULL){
-		data = static_cast<Data*>(
-					malloc(sizeof(Data))
-				);
-
+	if(packed == NULL)
 		mem_allocate(sizeof(Header) + sizeof(int) + size);
-	}
-	else{
-		data = static_cast<Data*>(
-					realloc(data, sizeof(Data) * (this->data_count+1))
-				);
-
+	else
 		mem_allocate(sizeof(int) + size);
-	}
 	
-	Data *dst;
+	Data dst;
 	int offset = packed_size;
 
-	dst = &data[this->data_count];
-
 	// size 쓰기
-	dst->size = size;
+	dst.size = size;
 	memcpy_s(packed + offset, sizeof(int),
 			&size, sizeof(int));
 	offset += sizeof(int);
@@ -142,7 +127,9 @@ void Packet::pushBinary(void *bin,int size){
 	// data 쓰기
 	memcpy_s(packed + offset, size,
 			bin, size);
-	dst->offset = offset;
+	dst.offset = offset;
+
+	data.push_back(dst);
 	
 
 	this->data_count ++;

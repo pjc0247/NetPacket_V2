@@ -5,6 +5,8 @@
 #define MEM_USE_PREALLOC	1
 #define MEM_RESERVE_SCALE	24
 
+#include <vector>
+
 #pragma pack(push, 4)
 class Packet{
 public:
@@ -19,7 +21,8 @@ public:
 	};
 
 	Header				header;
-	Data*				data;
+	//Data*				data;
+	std::vector<Data>	data;
 
 	int					size;
 	int					data_count;
